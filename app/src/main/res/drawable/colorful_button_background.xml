@@ -1,32 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="80dp"
-    android:height="80dp"
-    android:viewportWidth="80"
-    android:viewportHeight="80">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Pressed state - darker version -->
+    <item android:state_pressed="true">
+        <vector xmlns:android="http://schemas.android.com/apk/res/android"
+            android:width="80dp"
+            android:height="80dp"
+            android:viewportWidth="80"
+            android:viewportHeight="80">
 
-    <!-- Ring: top-right annular wedge -->
-    <path
-        android:fillColor="#FF0000"
-        android:pathData="M40,0 A40,40 0 0,1 80,40 L76,40 A36,36 0 0,0 40,4 Z" />
+            <!-- Ring: top-right annular wedge (darker) -->
+            <path
+                android:fillColor="#CC0000"
+                android:pathData="M40,0 A40,40 0 0,1 80,40 L76,40 A36,36 0 0,0 40,4 Z" />
 
-    <!-- Ring: bottom-right annular wedge -->
-    <path
-        android:fillColor="#4285F4"
-        android:pathData="M80,40 A40,40 0 0,1 40,80 L40,76 A36,36 0 0,0 76,40 Z" />
+            <!-- Ring: bottom-right annular wedge (darker) -->
+            <path
+                android:fillColor="#2E5BBA"
+                android:pathData="M80,40 A40,40 0 0,1 40,80 L40,76 A36,36 0 0,0 76,40 Z" />
 
-    <!-- Ring: bottom-left annular wedge -->
-    <path
-        android:fillColor="#34A853"
-        android:pathData="M40,80 A40,40 0 0,1 0,40 L4,40 A36,36 0 0,0 40,76 Z" />
+            <!-- Ring: bottom-left annular wedge (darker) -->
+            <path
+                android:fillColor="#2A7D32"
+                android:pathData="M40,80 A40,40 0 0,1 0,40 L4,40 A36,36 0 0,0 40,76 Z" />
 
-    <!-- Ring: top-left annular wedge -->
-    <path
-        android:fillColor="#FBBC04"
-        android:pathData="M0,40 A40,40 0 0,1 40,0 L40,4 A36,36 0 0,0 4,40 Z" />
+            <!-- Ring: top-left annular wedge (darker) -->
+            <path
+                android:fillColor="#CC8800"
+                android:pathData="M0,40 A40,40 0 0,1 40,0 L40,4 A36,36 0 0,0 4,40 Z" />
 
-    <!-- Center disk (Gmail-like orange) -->
-    <path
-        android:fillColor="#FB8C00"
-        android:pathData="M40,6 A34,34 0 1,1 40,74 A34,34 0 1,1 40,6 Z" />
-</vector>
+            <!-- Center disk (darker orange) -->
+            <path
+                android:fillColor="#E65100"
+                android:pathData="M40,6 A34,34 0 1,1 40,74 A34,34 0 1,1 40,6 Z" />
+        </vector>
+    </item>
+
+    <!-- Normal state - original colors -->
+    <item>
+        <vector xmlns:android="http://schemas.android.com/apk/res/android"
+            android:width="80dp"
+            android:height="80dp"
+            android:viewportWidth="80"
+            android:viewportHeight="80">
+
+            <!-- Ring: top-right annular wedge -->
+            <path
+                android:fillColor="#FF0000"
+                android:pathData="M40,0 A40,40 0 0,1 80,40 L76,40 A36,36 0 0,0 40,4 Z" />
+
+            <!-- Ring: bottom-right annular wedge -->
+            <path
+                android:fillColor="#4285F4"
+                android:pathData="M80,40 A40,40 0 0,1 40,80 L40,76 A36,36 0 0,0 76,40 Z" />
+
+            <!-- Ring: bottom-left annular wedge -->
+            <path
+                android:fillColor="#34A853"
+                android:pathData="M40,80 A40,40 0 0,1 0,40 L4,40 A36,36 0 0,0 40,76 Z" />
+
+            <!-- Ring: top-left annular wedge -->
+            <path
+                android:fillColor="#FBBC04"
+                android:pathData="M0,40 A40,40 0 0,1 40,0 L40,4 A36,36 0 0,0 4,40 Z" />
+
+            <!-- Center disk (Gmail-like orange) -->
+            <path
+                android:fillColor="#FB8C00"
+                android:pathData="M40,6 A34,34 0 1,1 40,74 A34,34 0 1,1 40,6 Z" />
+        </vector>
+    </item>
+</selector>

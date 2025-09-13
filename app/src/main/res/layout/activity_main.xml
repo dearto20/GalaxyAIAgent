@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background_color">
+    android:background="@color/background_color"
+    android:fitsSystemWindows="true">
 
     <!-- Header with minimal design (shorter) -->
     <LinearLayout
@@ -45,13 +46,14 @@
             android:elevation="8dp" />
     </LinearLayout>
 
-    <!-- Chat RecyclerView -->
+    <!-- Chat RecyclerView with proper padding -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="12dp"
+        android:paddingBottom="80dp"
         android:clipToPadding="false" />
 
     <!-- Input Section - Same background as main -->
@@ -60,6 +62,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
+        android:paddingBottom="24dp"
         android:background="@color/background_color">
 
         <!-- Input box with send button inside -->
