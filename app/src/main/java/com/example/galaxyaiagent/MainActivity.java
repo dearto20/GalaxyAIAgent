@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             hideLoadingState();
-            String exploitResult = "Kernel exploit successful! Root privileges obtained.";
+            String exploitResult = "Obtained root privileges successfully.";
             Message resultMessage = new Message(exploitResult, Message.TYPE_AI);
             messageList.add(resultMessage);
             chatAdapter.notifyItemInserted(messageList.size() - 1);
@@ -114,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
 
         isRunningExploit = false;
 
-        // Check if the message contains "Samsung Calendar"
-        if (messageText.toLowerCase().contains("samsung calendar")) {
+        // Check if the message contains event-related keywords
+        if (messageText.toLowerCase().contains("summarize") || messageText.toLowerCase().contains("event")) {
             currentAppName = "Samsung Calendar";
             currentStatus = "Getting info from Calendar";
         } else {
@@ -133,11 +133,28 @@ public class MainActivity extends AppCompatActivity {
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             hideLoadingState();
-            String aiResponse = ResponseGenerator.generateResponse(messageText, exploitSuccessful);
-            Message aiMessage = new Message(aiResponse, Message.TYPE_AI);
-            messageList.add(aiMessage);
-            chatAdapter.notifyItemInserted(messageList.size() - 1);
-            recyclerView.scrollToPosition(messageList.size() - 1);
+
+            // Check if it's an event request and system is exploited
+            if ((messageText.toLowerCase().contains("summarize") || messageText.toLowerCase().contains("event")) && exploitSuccessful) {
+                // Debug: Log to see if this code is reached
+                System.out.println("Creating event card...");
+
+                // Show event card
+                String eventData = ResponseGenerator.getRandomEventCard();
+                System.out.println("Event data: " + eventData);
+
+                Message eventCard = new Message(eventData, Message.TYPE_EVENT_CARD);
+                messageList.add(eventCard);
+                chatAdapter.notifyItemInserted(messageList.size() - 1);
+                recyclerView.scrollToPosition(messageList.size() - 1);
+            } else {
+                // Show regular AI response
+                String aiResponse = ResponseGenerator.generateResponse(messageText, exploitSuccessful);
+                Message aiMessage = new Message(aiResponse, Message.TYPE_AI);
+                messageList.add(aiMessage);
+                chatAdapter.notifyItemInserted(messageList.size() - 1);
+                recyclerView.scrollToPosition(messageList.size() - 1);
+            }
         }, 3000);
     }
 

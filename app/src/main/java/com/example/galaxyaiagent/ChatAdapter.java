@@ -3,7 +3,9 @@ package com.example.galaxyaiagent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
@@ -17,7 +19,14 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return messageList.get(position).getType();
+        Message message = messageList.get(position);
+        if (message.getType() == Message.TYPE_LOADING) {
+            return Message.TYPE_LOADING;
+        } else if (message.getType() == Message.TYPE_EVENT_CARD) {
+            return Message.TYPE_EVENT_CARD;
+        } else {
+            return message.getType();
+        }
     }
 
     @NonNull
@@ -27,6 +36,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.loading_item, parent, false);
             return new LoadingViewHolder(view);
+        } else if (viewType == Message.TYPE_EVENT_CARD) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.event_card_item, parent, false);
+            return new EventCardViewHolder(view);
         } else {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.message_item, parent, false);
@@ -37,6 +50,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Message message = messageList.get(position);
+        System.out.println("Binding view at position " + position + " with type " + message.getType());
 
         if (holder instanceof MessageViewHolder) {
             MessageViewHolder messageHolder = (MessageViewHolder) holder;
@@ -51,9 +65,28 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
         } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingHolder = (LoadingViewHolder) holder;
-            // Use the dynamic app name and status
             loadingHolder.appName.setText(MainActivity.currentAppName);
             loadingHolder.status.setText(MainActivity.currentStatus);
+        } else if (holder instanceof EventCardViewHolder) {
+            System.out.println("Binding event card view holder");
+            EventCardViewHolder cardHolder = (EventCardViewHolder) holder;
+            String[] parts = message.getText().split("\\|");
+            if (parts.length >= 4) {
+                cardHolder.eventTitle.setText(parts[0]);
+                cardHolder.eventTime.setText(parts[1]);
+                cardHolder.eventDate.setText(parts[2]);
+                cardHolder.eventLocation.setText(parts[3]);
+
+                // Set click listener on the card container
+                cardHolder.eventCardContainer.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        System.out.println("Event card clicked!");
+                        String eventInfo = parts[0] + " at " + parts[1] + " (" + parts[2] + ")";
+                        Toast.makeText(v.getContext(), "Event tapped: " + eventInfo, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         }
     }
 
@@ -81,6 +114,23 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(itemView);
             appName = itemView.findViewById(R.id.textViewAppName);
             status = itemView.findViewById(R.id.textViewStatus);
+        }
+    }
+
+    public static class EventCardViewHolder extends RecyclerView.ViewHolder {
+        TextView eventTitle;
+        TextView eventTime;
+        TextView eventDate;
+        TextView eventLocation;
+        LinearLayout eventCardContainer;
+
+        public EventCardViewHolder(@NonNull View itemView) {
+            super(itemView);
+            eventTitle = itemView.findViewById(R.id.eventTitle);
+            eventTime = itemView.findViewById(R.id.eventTime);
+            eventDate = itemView.findViewById(R.id.eventDate);
+            eventLocation = itemView.findViewById(R.id.eventLocation);
+            eventCardContainer = itemView.findViewById(R.id.eventCardContainer);
         }
     }
 }
