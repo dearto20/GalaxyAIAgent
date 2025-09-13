@@ -1,0 +1,32 @@
+# IDE / OS
+*.iml
+.DS_Store
+
+# IntelliJ/Android Studio
+/.idea/*
+!.idea/codeStyles
+!.idea/inspectionProfiles
+
+# Gradle & builds
+.gradle/
+build/
+**/build/
+
+# NDK/CMake
+.cxx/
+.externalNativeBuild/
+
+# Captures & misc
+captures/
+*.hprof
+
+# Local machine config
+local.properties
+
+# Signing & secrets (KEEP THESE OUT)
+*.jks
+*.keystore
+**/keystore*
+**/signing.properties
+# If your gradle.properties contains secrets, ignore it:
+# **/gradle.properties

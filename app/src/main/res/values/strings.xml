@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Galaxy AI Agent</string>
+    <string name="message_hint">Message Galaxy AI...</string>
+    <string name="send_button">Send</string>
+    <string name="loading_app_name">Samsung Calendar</string>
+    <string name="loading_status">Getting info from Calendar</string>
+</resources>
