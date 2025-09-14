@@ -1,17 +1,19 @@
 package com.example.galaxyaiagent;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public static boolean isRunningExploit = false;
     public static String currentAppName = "Galaxy AI Agent";
     public static String currentStatus = "Processing your request...";
+    private ObjectAnimator glowAnimator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onKernelExploitClick() {
+        if (exploitSuccessful) {
+            // Already exploited, show message
+            Toast.makeText(this, "System already compromised!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Start glowing animation
+        startGlowAnimation();
+
         isRunningExploit = true;
         currentAppName = "Kernel Exploit";
         currentStatus = "Exploiting kernel vulnerability...";
@@ -80,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             hideLoadingState();
-            String exploitResult = "Obtained root privileges successfully.";
+            String exploitResult = "Root privileges obtained successfully!";
             Message resultMessage = new Message(exploitResult, Message.TYPE_AI);
             messageList.add(resultMessage);
             chatAdapter.notifyItemInserted(messageList.size() - 1);
@@ -88,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
 
             changeChatBackgroundToFormalRed();
             isRunningExploit = false;
+
+            // Stop glowing animation
+            stopGlowAnimation();
         }, 2000);
     }
 
@@ -136,13 +151,8 @@ public class MainActivity extends AppCompatActivity {
 
             // Check if it's an event request and system is exploited
             if ((messageText.toLowerCase().contains("summarize") || messageText.toLowerCase().contains("event")) && exploitSuccessful) {
-                // Debug: Log to see if this code is reached
-                System.out.println("Creating event card...");
-
                 // Show event card
                 String eventData = ResponseGenerator.getRandomEventCard();
-                System.out.println("Event data: " + eventData);
-
                 Message eventCard = new Message(eventData, Message.TYPE_EVENT_CARD);
                 messageList.add(eventCard);
                 chatAdapter.notifyItemInserted(messageList.size() - 1);
@@ -170,5 +180,44 @@ public class MainActivity extends AppCompatActivity {
             messageList.remove(messageList.size() - 1);
             chatAdapter.notifyItemRemoved(messageList.size());
         }
+    }
+
+    private void startGlowAnimation() {
+        // Create pulsing glow effect with size and alpha changes
+        glowAnimator = ObjectAnimator.ofFloat(buttonKernelExploit, "alpha", 1.0f, 0.4f, 1.0f);
+        glowAnimator.setDuration(1000);
+        glowAnimator.setRepeatCount(ObjectAnimator.INFINITE);
+        glowAnimator.setRepeatMode(ObjectAnimator.REVERSE);
+
+        // Create scale animation
+        ObjectAnimator scaleAnimator = ObjectAnimator.ofFloat(buttonKernelExploit, "scaleX", 1.0f, 1.1f, 1.0f);
+        scaleAnimator.setDuration(1000);
+        scaleAnimator.setRepeatCount(ObjectAnimator.INFINITE);
+        scaleAnimator.setRepeatMode(ObjectAnimator.REVERSE);
+
+        ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(buttonKernelExploit, "scaleY", 1.0f, 1.1f, 1.0f);
+        scaleYAnimator.setDuration(1000);
+        scaleYAnimator.setRepeatCount(ObjectAnimator.INFINITE);
+        scaleYAnimator.setRepeatMode(ObjectAnimator.REVERSE);
+
+        // Start all animations
+        glowAnimator.start();
+        scaleAnimator.start();
+        scaleYAnimator.start();
+    }
+
+    private void stopGlowAnimation() {
+        if (glowAnimator != null) {
+            glowAnimator.cancel();
+            buttonKernelExploit.setAlpha(1.0f);
+            buttonKernelExploit.setScaleX(1.0f);
+            buttonKernelExploit.setScaleY(1.0f);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopGlowAnimation();
     }
 }

@@ -19,7 +19,7 @@
 
         <!-- Spacer to balance the button -->
         <View
-            android:layout_width="60dp"
+            android:layout_width="50dp"
             android:layout_height="1dp" />
 
         <!-- Centered title -->
@@ -36,10 +36,11 @@
         <!-- Gmail-style oval button with shadow (smaller) -->
         <TextView
             android:id="@+id/buttonKernelExploit"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="6dp"
             android:text="Kernel\nExploit"
-            android:textSize="10sp"
+            android:textSize="9sp"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:background="@drawable/colorful_button_background"
