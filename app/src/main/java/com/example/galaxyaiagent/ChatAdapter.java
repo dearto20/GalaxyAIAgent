@@ -3,6 +3,7 @@ package com.example.galaxyaiagent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,6 +68,22 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             LoadingViewHolder loadingHolder = (LoadingViewHolder) holder;
             loadingHolder.appName.setText(MainActivity.currentAppName);
             loadingHolder.status.setText(MainActivity.currentStatus);
+
+            // Show appropriate icon based on current app
+            // Show appropriate icon based on current app
+            if (MainActivity.currentAppName.equals("Samsung Calendar")) {
+                loadingHolder.calendarIcon.setVisibility(View.VISIBLE);
+                loadingHolder.aiThinkIcon.setVisibility(View.GONE);
+                loadingHolder.skullText.setVisibility(View.GONE);
+            } else if (MainActivity.currentAppName.equals("Kernel Exploit")) {
+                loadingHolder.skullText.setVisibility(View.VISIBLE);
+                loadingHolder.calendarIcon.setVisibility(View.GONE);
+                loadingHolder.aiThinkIcon.setVisibility(View.GONE);
+            } else {
+                loadingHolder.aiThinkIcon.setVisibility(View.VISIBLE);
+                loadingHolder.calendarIcon.setVisibility(View.GONE);
+                loadingHolder.skullText.setVisibility(View.GONE);
+            }
         } else if (holder instanceof EventCardViewHolder) {
             System.out.println("Binding event card view holder");
             EventCardViewHolder cardHolder = (EventCardViewHolder) holder;
@@ -109,11 +126,17 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static class LoadingViewHolder extends RecyclerView.ViewHolder {
         TextView appName;
         TextView status;
+        ImageView aiThinkIcon;
+        ImageView calendarIcon;
+        TextView skullText;
 
         public LoadingViewHolder(@NonNull View itemView) {
             super(itemView);
             appName = itemView.findViewById(R.id.textViewAppName);
             status = itemView.findViewById(R.id.textViewStatus);
+            aiThinkIcon = itemView.findViewById(R.id.aiThinkIcon);
+            calendarIcon = itemView.findViewById(R.id.calendarIcon);
+            skullText = itemView.findViewById(R.id.skullText);
         }
     }
 

@@ -13,25 +13,46 @@
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
-        <!-- Animated Circle with AI star inside -->
+        <!-- Animated Circle with dynamic icon inside -->
         <FrameLayout
-            android:layout_width="24dp"
-            android:layout_height="24dp">
+            android:layout_width="40dp"
+            android:layout_height="40dp">
 
-            <!-- Rotating ProgressBar -->
+            <!-- Rotating ProgressBar (larger) -->
             <ProgressBar
                 android:id="@+id/progressBar"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:indeterminateTint="@color/accent_color"
                 style="?android:attr/progressBarStyle" />
 
-            <!-- AI star in the center -->
+            <!-- AI think icon (default) -->
             <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:id="@+id/aiThinkIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ai_star" />
+                android:src="@drawable/ic_ai_think"
+                android:visibility="visible" />
+
+            <!-- Calendar icon (for Samsung Calendar) - smaller -->
+            <ImageView
+                android:id="@+id/calendarIcon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_calendar"
+                android:visibility="gone" />
+
+            <!-- Skull text (for Kernel Exploit) -->
+            <TextView
+                android:id="@+id/skullText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="💀"
+                android:textSize="14sp"
+                android:visibility="gone" />
 
         </FrameLayout>
 
