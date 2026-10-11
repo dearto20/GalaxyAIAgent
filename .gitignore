@@ -30,15 +30,3 @@ local.properties
 **/signing.properties
 # If your gradle.properties contains secrets, ignore it:
 # **/gradle.properties
-
-# DevelopmentHarness (bootstrap)
-node_modules/
-tmp/
-harness/artifacts/validation/*.json
-harness/artifacts/validation/*.md
-!harness/artifacts/validation/README.md
-harness/artifacts/cross-agent-review/*.json
-harness/artifacts/cross-agent-review/*.md
-!harness/artifacts/cross-agent-review/README.md
-harness/artifacts/telemetry/*.jsonl
-!harness/artifacts/telemetry/README.md
